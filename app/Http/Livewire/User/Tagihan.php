@@ -45,7 +45,11 @@ class Tagihan extends Component
 
     public function updatedFilterTanggal()
     {
-        $this->filter_tanggal_format = date_create($this->filter_tanggal);
+        if ($this->filter_tanggal != null) {
+            $this->filter_tanggal_format = date_create($this->filter_tanggal);
+        } else {
+            $this->filter_tanggal_format = null;
+        }
     }
 
     public function resetFields()

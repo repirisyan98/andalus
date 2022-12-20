@@ -29,7 +29,7 @@ class Home extends Component
         } else {
             return view('livewire.home', [
                 'tagihan' => $this->readyToLoad ? TagihanPelanggan::select('status')->where('user_id', auth()->user()->id)->get() : [],
-                'tunggakan' => $this->readyToLoad ? TagihanPelanggan::where('status', false)->get() : [],
+                'tunggakan' => $this->readyToLoad ? TagihanPelanggan::where('user_id', auth()->user()->id)->where('status', false)->get() : [],
             ]);
         }
     }
