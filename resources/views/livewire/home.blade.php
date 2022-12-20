@@ -107,14 +107,10 @@
                             {{ number_format($item->tarif * ($item->meteran_akhir - $item->meteran_awal) + $item->biaya_admin, 0, ',', '.') }}</b>
                         Harap segera lakukan pembayaran
                     </div>
-                @else
-                    <div class="alert alert-info" role="alert">
-                        Kamu tidak memiliki tunggakan <b>{{ auth()->user()->name }}</b>
-                    </div>
                 @endif
             @empty
                 <div class="alert alert-info" role="alert">
-                    Tidak ada riwayat
+                    Tidak ada tunggakan
                 </div>
             @endforelse
         @endif
