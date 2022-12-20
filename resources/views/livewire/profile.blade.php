@@ -27,7 +27,7 @@
         <div class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <i class="bx bx-user"></i>
+                    <i class="bx bx-user" style="font-size: 128px"></i>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -35,7 +35,7 @@
                         <table class="table table-borderless">
                             <tr>
                                 <td>Nomor Rumah</td>
-                                <td>: {{ auth()->user()->nomor_rumah }}</td>
+                                <td>: {{ auth()->user()->username }}</td>
                             </tr>
                             <tr>
                                 <td>Nama</td>

@@ -35,10 +35,13 @@
                     <td>{{ $no }}</td>
                     <td>{{ date_format($date, 'd M Y') }}</td>
                     <td>
-                        {{ $item->jenis == '1' ? 'Debit' : ($item->jenis == '2' ? 'Kredit' : 'Saldo') }}
+                        {{ $item->jenis == '1' ? 'Debit' : 'Kredit' }}
                     </td>
                     <td>
                         Rp. {{ number_format($item->jumlah, 0, ',', '.') }}
+                    </td>
+                    <td>
+                        Rp. {{ number_format($item->saldo_akhir, 0, ',', '.') }}
                     </td>
                     <td>{{ $item->keterangan == null ? 'Tidak ada keterangan' : $item->keterangan }}
                     </td>

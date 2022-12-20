@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Saldo;
 use App\Models\TagihanPelanggan;
 use App\Models\User;
 use Livewire\Component;
@@ -24,7 +25,8 @@ class Home extends Component
         if (auth()->user()->role == '1') {
             return view('livewire.home', [
                 'user' => $this->readyToLoad ? User::where('role', '2')->count() : [],
-                'tagihan' => $this->readyToLoad ? TagihanPelanggan::select('meteran_awal', 'meteran_akhir', 'tarif', 'biaya_admin', 'status', 'bukti_transfer')->get() : []
+                'tagihan' => $this->readyToLoad ? TagihanPelanggan::select('meteran_awal', 'meteran_akhir', 'tarif', 'biaya_admin', 'status', 'bukti_transfer')->get() : [],
+                'saldo' => $this->readyToLoad ? Saldo::find(1)->value('saldo') : [],
             ]);
         } else {
             return view('livewire.home', [

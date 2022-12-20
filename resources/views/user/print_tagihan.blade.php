@@ -15,13 +15,12 @@
         Laporan Tagihan {{ $filter_tanggal }} <br> Status :
         {{ $filter_status == '1' ? 'Lunas' : ($filter_status == '0' ? 'Belum Lunas' : 'Semua') }}
     </h5>
+    <p>Nama : {{ auth()->user()->name }} <br> Nomor Rumah : {{ auth()->user()->username }}</p>
     <hr>
     <table class="table table-bordered" style="font-size: 12px">
         <thead>
             <tr>
                 <th>NO</th>
-                <th>NAMA PELANGGAN</th>
-                <th>BLOK</th>
                 <th>M AWAL</th>
                 <th>M AKHIR</th>
                 <th>TOTAL</th>
@@ -38,10 +37,6 @@
                 @endphp
                 <tr>
                     <td>{{ $no }}</td>
-                    <td>{{ $item->user->name }}</td>
-                    <td>
-                        {{ $item->user->username }}
-                    </td>
                     <td>
                         {{ $item->meteran_awal }}
                     </td>
@@ -66,7 +61,7 @@
                 @endphp
             @empty
                 <tr>
-                    <td colspan="9" class="text-center">
+                    <td colspan="7" class="text-center">
                         Tidak Ada Data
                     </td>
                 </tr>

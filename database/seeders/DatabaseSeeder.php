@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\BiayaAdmin;
+use App\Models\Saldo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -31,6 +32,10 @@ class DatabaseSeeder extends Seeder
         BiayaAdmin::create([
             'biaya_admin' => 5000,
             'tarif' => 5000
+        ]);
+
+        Saldo::create([
+            'saldo' => 0
         ]);
     }
 }

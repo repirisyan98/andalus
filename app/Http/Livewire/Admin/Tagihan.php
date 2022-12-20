@@ -3,8 +3,11 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\BiayaAdmin;
+use App\Models\Kas;
+use App\Models\Saldo;
 use App\Models\TagihanPelanggan;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -17,7 +20,7 @@ class Tagihan extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $readyToLoad, $temp_id, $user_id, $search, $bukti_transfer, $biaya_admin, $filter_status, $filter_tanggal, $filter_tanggal_format, $tarif, $nomor_rumah, $nama_pelanggan, $tanggal, $meteran_awal, $meteran_akhir, $pemakaian, $tagihan, $tanggal_bayar, $status;
+    public $readyToLoad, $temp_id, $user_id, $search, $saldo, $bukti_transfer, $biaya_admin, $filter_status, $filter_tanggal, $filter_tanggal_format, $tarif, $nomor_rumah, $nama_pelanggan, $tanggal, $meteran_awal, $meteran_akhir, $pemakaian, $tagihan, $tanggal_bayar, $status;
 
     protected $listeners = [
         'confirmed', 'canceled', 'accepted', 'denied'
@@ -115,16 +118,43 @@ class Tagihan extends Component
     {
         $this->validate();
         try {
-            TagihanPelanggan::create([
-                'user_id' => $this->user_id,
-                'tanggal' => $this->tanggal,
-                'meteran_awal' => $this->meteran_awal,
-                'meteran_akhir' => $this->meteran_akhir,
-                'tarif' => $this->tarif,
-                'biaya_admin' => $this->biaya_admin,
-                'tanggal_bayar' => $this->tanggal_bayar,
-                'status' => $this->status,
-            ]);
+            if ($this->status == true) {
+                $this->saldo = Saldo::find(1)->value('saldo');
+                DB::transaction(function () {
+                    Saldo::find(1)->update([
+                        'saldo' => $this->saldo + $this->tagihan
+                    ]);
+                    Kas::create([
+                        'tanggal' => $this->tanggal,
+                        'jenis' => 1,
+                        'jumlah' => $this->tagihan,
+                        'saldo_akhir' => $this->saldo + $this->tagihan,
+                        'keterangan' => 'Tagihan Pelanggan',
+                    ]);
+                    TagihanPelanggan::create([
+                        'user_id' => $this->user_id,
+                        'tanggal' => $this->tanggal,
+                        'meteran_awal' => $this->meteran_awal,
+                        'meteran_akhir' => $this->meteran_akhir,
+                        'tarif' => $this->tarif,
+                        'biaya_admin' => $this->biaya_admin,
+                        'tanggal_bayar' => $this->tanggal_bayar,
+                        'status' => $this->status,
+                    ]);
+                });
+            } else {
+                TagihanPelanggan::create([
+                    'user_id' => $this->user_id,
+                    'tanggal' => $this->tanggal,
+                    'meteran_awal' => $this->meteran_awal,
+                    'meteran_akhir' => $this->meteran_akhir,
+                    'tarif' => $this->tarif,
+                    'biaya_admin' => $this->biaya_admin,
+                    'tanggal_bayar' => $this->tanggal_bayar,
+                    'status' => $this->status,
+                ]);
+            }
+
             $this->alert(
                 'success',
                 "Data Berhasil Disimpan"
@@ -159,17 +189,45 @@ class Tagihan extends Component
     {
         // $this->validate();
         try {
-            TagihanPelanggan::find($this->temp_id)->update([
-                'user_id' => $this->user_id,
-                'tanggal' => $this->tanggal,
-                'meteran_awal' => $this->meteran_awal,
-                'meteran_akhir' => $this->meteran_akhir,
-                'tarif' => $this->tarif,
-                'biaya_admin' => $this->biaya_admin,
-                'tanggal_bayar' => $this->tanggal_bayar,
-                'status' => $this->status,
-                'updated_at' => now()
-            ]);
+            if ($this->status == true) {
+                $this->saldo = Saldo::find(1)->value('saldo');
+                DB::transaction(function () {
+                    Saldo::find(1)->update([
+                        'saldo' => $this->saldo + $this->tagihan
+                    ]);
+                    Kas::create([
+                        'tanggal' => $this->tanggal,
+                        'jenis' => 1,
+                        'jumlah' => $this->tagihan,
+                        'saldo_akhir' => $this->saldo + $this->tagihan,
+                        'keterangan' => 'Tagihan Pelanggan',
+                    ]);
+                    TagihanPelanggan::find($this->temp_id)->update([
+                        'user_id' => $this->user_id,
+                        'tanggal' => $this->tanggal,
+                        'meteran_awal' => $this->meteran_awal,
+                        'meteran_akhir' => $this->meteran_akhir,
+                        'tarif' => $this->tarif,
+                        'biaya_admin' => $this->biaya_admin,
+                        'tanggal_bayar' => $this->tanggal_bayar,
+                        'status' => $this->status,
+                        'updated_at' => now()
+                    ]);
+                });
+            } else {
+                TagihanPelanggan::find($this->temp_id)->update([
+                    'user_id' => $this->user_id,
+                    'tanggal' => $this->tanggal,
+                    'meteran_awal' => $this->meteran_awal,
+                    'meteran_akhir' => $this->meteran_akhir,
+                    'tarif' => $this->tarif,
+                    'biaya_admin' => $this->biaya_admin,
+                    'tanggal_bayar' => $this->tanggal_bayar,
+                    'status' => $this->status,
+                    'updated_at' => now()
+                ]);
+            }
+
             $this->alert(
                 'success',
                 "Data Berhasil Diubah"
@@ -243,9 +301,25 @@ class Tagihan extends Component
     public function accepted()
     {
         try {
-            TagihanPelanggan::find($this->temp_id)->update([
-                'status' => true
-            ]);
+            $this->saldo = Saldo::find(1)->value('saldo');
+            $data = TagihanPelanggan::where('id', $this->temp_id)->first();
+            $pemakaian = $data->meteran_akhir - $data->meteran_awal;
+            $this->tagihan = $data->tarif * $pemakaian + $data->biaya_admin;
+            DB::transaction(function () {
+                Saldo::find(1)->update([
+                    'saldo' => $this->saldo + $this->tagihan
+                ]);
+                Kas::create([
+                    'tanggal' => date('Y-m-d'),
+                    'jenis' => 1,
+                    'jumlah' => $this->tagihan,
+                    'saldo_akhir' => $this->saldo + $this->tagihan,
+                    'keterangan' => 'Tagihan Pelanggan',
+                ]);
+                TagihanPelanggan::find($this->temp_id)->update([
+                    'status' => true
+                ]);
+            });
             $this->alert(
                 'success',
                 'Konfirmasi diterima'

@@ -19,6 +19,7 @@ class Tagihan extends Component
     public function mount()
     {
         $this->readyToLoad = false;
+        $this->filter_status = '2';
     }
 
     public function loadPosts()
@@ -31,7 +32,7 @@ class Tagihan extends Component
         return view('livewire.user.tagihan', [
             'data' => $this->readyToLoad ? TagihanPelanggan::when($this->filter_tanggal_format != null, function ($query) {
                 return $query->whereMonth('tanggal', date_format($this->filter_tanggal_format, 'm'))->whereYear('tanggal', date_format($this->filter_tanggal_format, 'Y'));
-            })->when($this->filter_status != null, function ($query) {
+            })->when($this->filter_status != '2', function ($query) {
                 return $query->where('status', $this->filter_status);
             })->where('user_id', auth()->user()->id)->orderBy('tanggal', 'desc')->simplePaginate(15) : []
         ]);

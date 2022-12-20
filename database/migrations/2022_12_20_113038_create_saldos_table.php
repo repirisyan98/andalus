@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kas', function (Blueprint $table) {
+        Schema::create('saldos', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->enum('jenis', [1, 2]);
-            $table->unsignedInteger('jumlah');
-            $table->unsignedInteger('saldo_akhir');
-            $table->text('keterangan')->nullable();
+            $table->unsignedInteger('saldo');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kas');
+        Schema::dropIfExists('saldos');
     }
 };

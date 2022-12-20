@@ -20,6 +20,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="dropdown float-end">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bx bx-filter"></i>
+                            {{ $filter_status == '3' ? 'Semua' : ($filter_status == '1' ? 'Debit' : 'Kredit') }}
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#" wire:click='filterStatus("3")'>Semua</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" wire:click='filterStatus("1")'>Debit</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" wire:click='filterStatus("2")'>Kredit</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -31,8 +48,9 @@
                             <th>Tanggal</th>
                             <th>Jenis</th>
                             <th>Jumlah</th>
+                            <th>Saldo Akhir</th>
                             <th>Keterangan</th>
-                            <th>Aksi</th>
+                            {{-- <th>Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -52,21 +70,24 @@
                                     <td>{{ $data->firstItem() + $key }}</td>
                                     <td>{{ date_format($date, 'd M Y') }}</td>
                                     <td>
-                                        {{ $item->jenis == '1' ? 'Debit' : ($item->jenis == '2' ? 'Kredit' : 'Saldo') }}
+                                        {{ $item->jenis == '1' ? 'Debit' : 'Kredit' }}
                                     </td>
                                     <td>
                                         Rp. {{ number_format($item->jumlah, 0, ',', '.') }}
                                     </td>
+                                    <td>
+                                        Rp. {{ number_format($item->saldo_akhir, 0, ',', '.') }}
+                                    </td>
                                     <td>{{ $item->keterangan == null ? 'Tidak ada keterangan' : $item->keterangan }}
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <button wire:click='edit("{{ $item->id }}")' data-bs-toggle="modal"
                                             data-bs-target="#modalUbah" class="btn btn-sm btn-warning"><i
                                                 class="bx bx-pencil"></i></button>
                                         <button class="btn btn-sm btn-danger" wire:loading.attr="disabled"
                                             wire:click="triggerConfirm('{{ $item->id }}')"><i
                                                 class="bx bx-x"></i></button>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @empty
                                 <tr>
@@ -109,9 +130,8 @@
                             <select required class="form-select @error('jenis') is-invalid @enderror"
                                 wire:model.defer='jenis'>
                                 <option value="">-- Pilih Jenis Kas --</option>
-                                <option value="1">Debet</option>
+                                <option value="1">Debit</option>
                                 <option value="2">Kredit</option>
-                                <option value="3">Saldo</option>
                             </select>
                             @error('jenis')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -142,7 +162,7 @@
         </div>
     </div>
 
-    <!-- Modal Ubah-->
+    {{-- <!-- Modal Ubah-->
     <div wire:ignore.self class="modal fade" id="modalUbah" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="modalUbah" aria-hidden="true">
         <div class="modal-dialog">
@@ -196,5 +216,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 </div>
