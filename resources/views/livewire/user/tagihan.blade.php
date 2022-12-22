@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <!-- Modal Ubah-->
+    <!-- Update-->
     <div wire:ignore.self class="modal fade" id="modalUbah" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="modalUbah" aria-hidden="true">
         <div class="modal-dialog">

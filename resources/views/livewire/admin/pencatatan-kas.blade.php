@@ -114,7 +114,7 @@
             <form wire:submit.prevent='store'>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal Tambah</h5>
+                        <h5 class="modal-title">Catat Kas</h5>
                         <button type="button" wire:click='resetFields' class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -162,14 +162,14 @@
         </div>
     </div>
 
-    {{-- <!-- Modal Ubah-->
+    {{-- <!-- Update-->
     <div wire:ignore.self class="modal fade" id="modalUbah" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="modalUbah" aria-hidden="true">
         <div class="modal-dialog">
             <form wire:submit.prevent='update'>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal Ubah</h5>
+                        <h5 class="modal-title">Update</h5>
                         <button type="button" wire:click='resetFields' class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
