@@ -108,7 +108,8 @@ class Tagihan extends Component
     public function store()
     {
         $this->validate();
-        if (TagihanPelanggan::where('tanggal', $this->tanggal)->where('user_id', $this->user_id)) {
+
+        if (TagihanPelanggan::where('tanggal', $this->tanggal)->where('user_id', $this->user_id)->exists()) {
             $this->alert(
                 'warning',
                 "Sudah ada data tagihan di bulan ini"
