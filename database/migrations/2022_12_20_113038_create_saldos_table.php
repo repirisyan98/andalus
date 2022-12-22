@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('saldos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('saldo');
+            $table->integer('saldo');
             $table->timestamps();
         });
     }

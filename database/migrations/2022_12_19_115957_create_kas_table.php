@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->enum('jenis', [1, 2]);
             $table->unsignedInteger('jumlah');
-            $table->unsignedInteger('saldo_akhir');
+            $table->integer('saldo_akhir');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
