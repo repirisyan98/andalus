@@ -31,9 +31,11 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $no = 1;
+            @endphp
             @forelse ($data as $item)
                 @php
-                    $no = 1;
                     $pemakaian = $item->meteran_akhir - $item->meteran_awal;
                 @endphp
                 <tr>

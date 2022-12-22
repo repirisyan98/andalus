@@ -27,9 +27,11 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $no = 1;
+            @endphp
             @forelse ($data as $item)
                 @php
-                    $no = 1;
                     $date = date_create($item->tanggal);
                 @endphp
                 <tr>
@@ -48,7 +50,7 @@
                     </td>
                 </tr>
                 @php
-                    $no += 1;
+                    $no++;
                 @endphp
             @empty
                 <tr>
