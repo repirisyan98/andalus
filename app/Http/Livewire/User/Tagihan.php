@@ -14,7 +14,7 @@ class Tagihan extends Component
     use WithFileUploads;
     use LivewireAlert;
 
-    public $readyToLoad, $temp_id, $bukti_transfer, $filter_status, $filter_tanggal, $filter_tanggal_format;
+    public $readyToLoad, $temp_id, $bukti_transfer, $filter_status, $filter_tanggal;
 
     public function mount()
     {
@@ -30,8 +30,8 @@ class Tagihan extends Component
     public function render()
     {
         return view('livewire.user.tagihan', [
-            'data' => $this->readyToLoad ? TagihanPelanggan::when($this->filter_tanggal_format != null, function ($query) {
-                return $query->whereMonth('tanggal', date_format($this->filter_tanggal_format, 'm'))->whereYear('tanggal', date_format($this->filter_tanggal_format, 'Y'));
+            'data' => $this->readyToLoad ? TagihanPelanggan::when($this->filter_tanggal != null, function ($query) {
+                return $query->where('tanggal', $this->filter_tanggal);
             })->when($this->filter_status != '2', function ($query) {
                 return $query->where('status', $this->filter_status);
             })->where('user_id', auth()->user()->id)->orderBy('tanggal', 'desc')->simplePaginate(15) : []
@@ -44,19 +44,10 @@ class Tagihan extends Component
         $this->resetPage();
     }
 
-    public function updatedFilterTanggal()
-    {
-        if ($this->filter_tanggal != null) {
-            $this->filter_tanggal_format = date_create($this->filter_tanggal);
-        } else {
-            $this->filter_tanggal_format = null;
-        }
-    }
-
     public function resetFields()
     {
         $this->resetValidation();
-        $this->resetExcept('readyToLoad', 'filter_tanggal', 'filter_tanggal_format');
+        $this->resetExcept('readyToLoad', 'filter_tanggal', 'filter_status');
     }
 
     public function update()

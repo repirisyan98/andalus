@@ -55,7 +55,7 @@
                             <th>No</th>
                             <th>Nomor Rumah</th>
                             <th>Nama Pelanggan</th>
-                            <th>Tanggal</th>
+                            <th>Periode</th>
                             <th>Lama Tunggakan</th>
                             <th>Total Tunggakan</th>
                             <th class="text-center">Bukti</th>
@@ -83,7 +83,7 @@
                                     <td>{{ $data->firstItem() + $key }}</td>
                                     <td>{{ $item->user->username }}</td>
                                     <td>{{ $item->user->name }}</td>
-                                    <td>{{ date_format($date, 'd M Y') }}</td>
+                                    <td>{{ date_format($date, 'M Y') }}</td>
                                     <td>{{ $totalMonths }} Bulan</td>
                                     <td>
                                         Rp.
@@ -166,8 +166,8 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Tanggal</label>
-                            <input required class="form-control @error('tanggal') is-invalid @enderror" type="date"
+                            <label class="form-label">Periode</label>
+                            <input required class="form-control @error('tanggal') is-invalid @enderror" type="month"
                                 wire:model.defer='tanggal' aria-label="tanggal">
                             @error('tanggal')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -266,8 +266,8 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Tanggal</label>
-                            <input required class="form-control @error('tanggal') is-invalid @enderror" type="date"
+                            <label class="form-label">Periode</label>
+                            <input required class="form-control @error('tanggal') is-invalid @enderror" type="month"
                                 wire:model.defer='tanggal' aria-label="tanggal" width="300px">
                             @error('tanggal')
                                 <div class="invalid-feedback">{{ $message }}</div>

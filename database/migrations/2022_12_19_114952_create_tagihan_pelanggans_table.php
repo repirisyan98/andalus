@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tagihan_pelanggans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->date('tanggal');
+            $table->string('tanggal');
             $table->unsignedFloat('meteran_awal');
             $table->unsignedFloat('meteran_akhir');
             $table->unsignedInteger('tarif');

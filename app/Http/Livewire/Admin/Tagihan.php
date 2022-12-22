@@ -20,7 +20,7 @@ class Tagihan extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $readyToLoad, $temp_id, $user_id, $search, $saldo, $bukti_transfer, $biaya_admin, $filter_status, $filter_tanggal, $filter_tanggal_format, $tarif, $nomor_rumah, $nama_pelanggan, $tanggal, $meteran_awal, $meteran_akhir, $pemakaian, $tagihan, $tanggal_bayar, $status;
+    public $readyToLoad, $temp_id, $user_id, $search, $saldo, $bukti_transfer, $biaya_admin, $filter_status, $filter_tanggal, $tarif, $nomor_rumah, $nama_pelanggan, $tanggal, $meteran_awal, $meteran_akhir, $pemakaian, $tagihan, $tanggal_bayar, $status;
 
     protected $listeners = [
         'confirmed', 'canceled', 'accepted', 'denied'
@@ -54,26 +54,17 @@ class Tagihan extends Component
     public function render()
     {
         return view('livewire.admin.tagihan', [
-            'data' => $this->readyToLoad ? TagihanPelanggan::with('user')->when($this->filter_tanggal_format != null, function ($query) {
-                return $query->whereMonth('tanggal', date_format($this->filter_tanggal_format, 'm'))->whereYear('tanggal', date_format($this->filter_tanggal_format, 'Y'));
+            'data' => $this->readyToLoad ? TagihanPelanggan::with('user')->when($this->filter_tanggal != null, function ($query) {
+                return $query->where('tanggal', $this->filter_tanggal);
             })->when($this->search != null, function ($query) {
                 return $query->whereHas('user', function ($query) {
                     return $query->where('username', 'like', '%' . $this->search . '%');
                 });
             })->when($this->filter_status != '2', function ($query) {
                 return $query->where('status', $this->filter_status);
-            })->simplePaginate(15) : [],
+            })->orderBy('tanggal', 'asc')->simplePaginate(15) : [],
             'data_rumah' => $this->readyToLoad ? User::select('username')->where('role', '2')->get() : [],
         ]);
-    }
-
-    public function updatedFilterTanggal()
-    {
-        if ($this->filter_tanggal != null) {
-            $this->filter_tanggal_format = date_create($this->filter_tanggal);
-        } else {
-            $this->filter_tanggal_format = null;
-        }
     }
 
     public function updatedSearch()
@@ -90,7 +81,7 @@ class Tagihan extends Component
     public function resetFields()
     {
         $this->resetValidation();
-        $this->resetExcept('readyToLoad', 'biaya_admin', 'tarif', 'search', 'filter_tanggal_format', 'filter_tanggal', 'filter_status');
+        $this->resetExcept('readyToLoad', 'biaya_admin', 'tarif', 'search', 'filter_tanggal', 'filter_status');
     }
 
     public function updatedNomorRumah()
@@ -117,6 +108,13 @@ class Tagihan extends Component
     public function store()
     {
         $this->validate();
+        if (TagihanPelanggan::where('tanggal', $this->tanggal)->where('user_id', $this->user_id)) {
+            $this->alert(
+                'warning',
+                "Sudah ada data tagihan di bulan ini"
+            );
+            return;
+        }
         try {
             if ($this->status == true) {
                 $this->saldo = Saldo::find(1)->value('saldo');
@@ -196,7 +194,7 @@ class Tagihan extends Component
                         'saldo' => $this->saldo + $this->tagihan
                     ]);
                     Kas::create([
-                        'tanggal' => $this->tanggal,
+                        'tanggal' => $this->tanggal_bayar,
                         'jenis' => 1,
                         'jumlah' => $this->tagihan,
                         'saldo_akhir' => $this->saldo + $this->tagihan,

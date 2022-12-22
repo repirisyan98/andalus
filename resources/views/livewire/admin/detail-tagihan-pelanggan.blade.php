@@ -47,7 +47,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Tanggal</th>
+                            <th>Periode</th>
                             <th>Meteran Awal</th>
                             <th>Meteran Akhir</th>
                             <th>Pemakaian</th>

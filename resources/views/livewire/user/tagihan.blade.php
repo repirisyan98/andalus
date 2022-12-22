@@ -44,7 +44,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Tanggal</th>
+                            <th>Periode</th>
                             <th>Meteran Awal</th>
                             <th>Meteran Akhir</th>
                             <th>Pemakaian</th>
@@ -70,7 +70,7 @@
                                 @endphp
                                 <tr>
                                     <td>{{ $data->firstItem() + $key }}</td>
-                                    <td>{{ date_format($date, 'd M Y') }}</td>
+                                    <td>{{ date_format($date, 'M Y') }}</td>
                                     <td>{{ $item->meteran_awal }}</td>
                                     <td>{{ $item->meteran_akhir }}</td>
                                     <td>{{ $pemakaian }}</td>
