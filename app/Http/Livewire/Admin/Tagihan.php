@@ -88,12 +88,14 @@ class Tagihan extends Component
     {
         if ($this->nomor_rumah != null) {
             $data = User::select('id', 'name')->where('username', $this->nomor_rumah)->first();
-            $this->nama_pelanggan = $data->name;
-            $this->user_id = $data->id;
-            $this->meteran_awal = TagihanPelanggan::whereHas('user', function ($query) {
-                return $query->where('username', $this->nomor_rumah);
-            })->orderBy('tanggal', 'desc')->limit(1)->value('meteran_akhir');
-            $this->calculate();
+            if ($data != null) {
+                $this->nama_pelanggan = $data->name;
+                $this->user_id = $data->id;
+                $this->meteran_awal = TagihanPelanggan::whereHas('user', function ($query) {
+                    return $query->where('username', $this->nomor_rumah);
+                })->orderBy('tanggal', 'desc')->limit(1)->value('meteran_akhir');
+                $this->calculate();
+            }
         }
     }
 
