@@ -22,6 +22,7 @@
                 <th>Tanggal</th>
                 <th>Jenis</th>
                 <th>Jumlah</th>
+                <th>Saldo Akhir</th>
                 <th>Keterangan</th>
             </tr>
         </thead>

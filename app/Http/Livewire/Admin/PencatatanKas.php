@@ -53,7 +53,7 @@ class PencatatanKas extends Component
     public function resetFields()
     {
         $this->resetValidation();
-        $this->resetExcept('readyToLoad', 'filter_tanggal', 'filter_tanggal_format');
+        $this->resetExcept('readyToLoad', 'filter_tanggal', 'filter_tanggal_format', 'filter_status');
     }
 
     public function filterStatus($status)
