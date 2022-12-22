@@ -20,6 +20,7 @@
         <thead>
             <tr>
                 <th>NO</th>
+                <th>PERIODE</th>
                 <th>NAMA PELANGGAN</th>
                 <th>BLOK</th>
                 <th>M AWAL</th>
@@ -36,10 +37,12 @@
             @endphp
             @forelse ($data as $item)
                 @php
+                    $date = date_create($item->tanggal);
                     $pemakaian = $item->meteran_akhir - $item->meteran_awal;
                 @endphp
                 <tr>
                     <td>{{ $no }}</td>
+                    <td>{{ date_format($date, 'M Y') }}</td>
                     <td>{{ $item->user->name }}</td>
                     <td>
                         {{ $item->user->username }}

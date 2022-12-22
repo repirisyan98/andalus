@@ -21,6 +21,7 @@
         <thead>
             <tr>
                 <th>NO</th>
+                <th>PERIODE</th>
                 <th>M AWAL</th>
                 <th>M AKHIR</th>
                 <th>TOTAL</th>
@@ -35,10 +36,12 @@
             @endphp
             @forelse ($data as $item)
                 @php
+                    $date = date_create($item->tanggal, 'M Y');
                     $pemakaian = $item->meteran_akhir - $item->meteran_awal;
                 @endphp
                 <tr>
                     <td>{{ $no }}</td>
+                    <td>{{ date_format($date, 'M Y') }}</td>
                     <td>
                         {{ $item->meteran_awal }}
                     </td>
