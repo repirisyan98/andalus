@@ -48,7 +48,7 @@
                     </td>
                 </tr>
                 @php
-                    $no++;
+                    $no += 1;
                 @endphp
             @empty
                 <tr>

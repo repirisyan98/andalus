@@ -46,7 +46,7 @@ class PencatatanKas extends Component
                 return $query->where('jenis', $this->filter_status);
             })->when($this->filter_tanggal_format != null, function ($query) {
                 return $query->whereMonth('tanggal', date_format($this->filter_tanggal_format, 'm'))->whereYear('tanggal', date_format($this->filter_tanggal_format, 'Y'));
-            })->simplePaginate(15) : []
+            })->orderBy('tanggal', 'asc')->simplePaginate(15) : []
         ]);
     }
 
