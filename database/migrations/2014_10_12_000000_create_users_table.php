@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('username')->unique();
             $table->string('password');
-            $table->text('alamat');
+            $table->text('alamat')->nullable();
             $table->enum('role', [1, 2]);
             $table->rememberToken();
             $table->timestamps();

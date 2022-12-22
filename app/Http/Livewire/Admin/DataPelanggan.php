@@ -57,7 +57,7 @@ class DataPelanggan extends Component
         $this->validate([
             'nomor_rumah' => 'required|unique:users,username',
             'name' => 'required',
-            'alamat' => 'required'
+            'alamat' => 'nullable'
         ]);
         try {
             User::create([
@@ -95,7 +95,7 @@ class DataPelanggan extends Component
     {
         $this->validate([
             'name' => 'required',
-            'alamat' => 'required'
+            'alamat' => 'nullable'
         ]);
         try {
             User::find($this->temp_id)->update([
