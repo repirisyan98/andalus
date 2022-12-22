@@ -316,7 +316,7 @@
                             <div class="col">
                                 <label class="form-label">Status</label>
                                 <select required class="form-select @error('status') is-invalid @enderror"
-                                    wire:model.defer='status'>
+                                    wire:model.lazy='status'>
                                     <option value="">-- Pilih Status --</option>
                                     <option value="1">Lunas</option>
                                     <option value="0">Belum Lunas</option>
