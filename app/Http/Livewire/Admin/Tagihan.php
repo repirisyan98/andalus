@@ -62,7 +62,7 @@ class Tagihan extends Component
                 });
             })->when($this->filter_status != '2', function ($query) {
                 return $query->where('status', $this->filter_status);
-            })->orderBy('tanggal', 'asc')->simplePaginate(15) : [],
+            })->orderBy('tanggal', 'desc')->simplePaginate(15) : [],
             'data_rumah' => $this->readyToLoad ? User::select('username')->where('role', '2')->get() : [],
         ]);
     }

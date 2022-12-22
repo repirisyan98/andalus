@@ -31,7 +31,7 @@ class DetailTagihanPelanggan extends Component
                 return $query->where('tanggal', $this->filter_tanggal);
             })->when($this->filter_status != '2', function ($query) {
                 return $query->where('status', $this->filter_status);
-            })->where('user_id', $this->user_id)->orderBy('tanggal', 'asc')->simplePaginate(15) : []
+            })->where('user_id', $this->user_id)->orderBy('tanggal', 'desc')->simplePaginate(15) : []
         ]);
     }
 

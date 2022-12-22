@@ -32,6 +32,8 @@ class PencatatanKas extends Component
     {
         $this->readyToLoad = false;
         $this->filter_status = '3';
+        $this->filter_tanggal = date('Y-m');
+        $this->filter_tanggal_format = now();
     }
 
     public function loadPosts()
