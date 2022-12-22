@@ -80,7 +80,7 @@
             <form wire:submit.prevent='store'>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Data Pelanggan</h5>
+                        <h5 class="modal-title">Tambah Pelanggan</h5>
                         <button type="button" wire:click='resetFields' class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
