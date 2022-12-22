@@ -206,7 +206,8 @@
                             </div>
                             <div class="col">
                                 <label class="form-label">Tanggal bayar</label>
-                                <input class="form-control @error('tanggal_bayar') is-invalid @enderror"
+                                <input
+                                    class="form-control {{ $status == 1 ? 'required' : '' }} @error('tanggal_bayar') is-invalid @enderror"
                                     type="date" wire:model.defer='tanggal_bayar' aria-label="tanggal_bayar">
                                 @error('tanggal_bayar')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -215,7 +216,7 @@
                             <div class="col">
                                 <label class="form-label">Status</label>
                                 <select required class="form-select @error('status') is-invalid @enderror"
-                                    wire:model.defer='status'>
+                                    wire:model.lazy='status'>
                                     <option value="">-- Pilih Status --</option>
                                     <option value="1">Lunas</option>
                                     <option value="0">Belum Lunas</option>
@@ -305,8 +306,9 @@
                             </div>
                             <div class="col">
                                 <label class="form-label">Tanggal bayar</label>
-                                <input class="form-control @error('tanggal_bayar') is-invalid @enderror"
-                                    type="date" wire:model.defer='tanggal_bayar' aria-label="tanggal_bayar">
+                                <input {{ $status == 1 ? 'required' : '' }}
+                                    class="form-control @error('tanggal_bayar') is-invalid @enderror" type="date"
+                                    wire:model.defer='tanggal_bayar' aria-label="tanggal_bayar">
                                 @error('tanggal_bayar')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
