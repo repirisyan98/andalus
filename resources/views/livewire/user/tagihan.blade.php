@@ -2,40 +2,23 @@
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
     <div class="card">
         <div class="card-header">
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <div class="col">
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" wire:model.lazy='filter_tanggal' type="month"
-                                    style="width: 200px">
-                            </form>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-secondary"
-                                href="{{ route('user.print_tagihan', [$filter_status, $filter_tanggal]) }}"
-                                target="_blank">Print <i class="bx bx-printer"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="dropdown float-end">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bx bx-filter"></i>
-                            {{ $filter_status == '2' ? 'Semua' : ($filter_status == '1' ? 'Lunas' : 'Belum Lunas') }}
-                        </a>
+            <a class="btn btn-secondary" href="{{ route('user.print_tagihan', [$filter_status, $filter_tanggal]) }}"
+                target="_blank">Print <i class="bx bx-printer"></i></a>
+            <div class="dropdown float-end">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bx bx-filter"></i>
+                    {{ $filter_status == '2' ? 'Semua' : ($filter_status == '1' ? 'Lunas' : 'Belum Lunas') }}
+                </a>
 
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#" wire:click='filterStatus("2")'>Semua</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#" wire:click='filterStatus("1")'>Lunas</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#" wire:click='filterStatus("0")'>Belum
-                                    Lunas</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#" wire:click='filterStatus("2")'>Semua</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" wire:click='filterStatus("1")'>Lunas</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" wire:click='filterStatus("0")'>Belum
+                            Lunas</a></li>
+                </ul>
             </div>
         </div>
         <div class="card-body">

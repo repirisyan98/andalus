@@ -6,22 +6,10 @@
                 <div class="col">
                     <a href="{{ route('admin.data_pelanggan') }}"><i class="bx bx-arrow-to-left"></i> Kembali</a>
                 </div>
-                <div class="col">
-                    <div class="row">
-                        <div class="col">
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" wire:model.lazy='filter_tanggal' type="month"
-                                    style="width: 200px">
-                            </form>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-secondary"
-                                href="{{ route('admin.detail_print_tagihan', [$filter_status, $user_id, $filter_tanggal]) }}"
-                                target="_blank">Print <i class="bx bx-printer"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
+                <div class="col-md-4">
+                    <a class="btn btn-secondary"
+                        href="{{ route('admin.detail_print_tagihan', [$filter_status, $user_id, $filter_tanggal]) }}"
+                        target="_blank">Print <i class="bx bx-printer"></i></a>
                     <div class="dropdown float-end">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-bs-toggle="dropdown" aria-expanded="false">
