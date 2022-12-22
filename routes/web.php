@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
             }
             $data = Kas::when($periode != null, function ($query) use ($periode) {
                 return $query->whereMonth('tanggal', date_format($periode, 'm'))->whereYear('tanggal', date_format($periode, 'Y'));
-            })->get();
+            })->orderBy('tanggal', 'asc')->get();
             $pdf = Pdf::loadView('admin.print_kas', ['data' => $data, 'periode' => $periode != null ? date_format($periode, 'M Y') : '']);
             return $pdf->stream();
         })->name('admin.print_kas');
@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
                 return $query->where('status', $filter_status);
             })->when($filter_tanggal != null, function ($query) use ($filter_tanggal) {
                 return $query->whereMonth('tanggal', date_format($filter_tanggal, 'm'))->whereYear('tanggal', date_format($filter_tanggal, 'Y'));
-            })->get();
+            })->orderBy('tanggal', 'asc')->get();
             $pdf = Pdf::loadView('admin.print_tagihan', ['data' => $data, 'filter_tanggal' => $filter_tanggal != null ? date_format($filter_tanggal, 'M Y') : '', 'filter_status' => $filter_status]);
             return $pdf->setPaper('A4', 'landscape')->stream();
         })->name('admin.print_tagihan');
@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
                 return $query->where('status', $filter_status);
             })->when($filter_tanggal != null, function ($query) use ($filter_tanggal) {
                 return $query->whereMonth('tanggal', date_format($filter_tanggal, 'm'))->whereYear('tanggal', date_format($filter_tanggal, 'Y'));
-            })->where('user_id', $user_id)->get();
+            })->where('user_id', $user_id)->orderBy('tanggal', 'asc')->get();
 
             $user = User::select('username', 'name')->where('id', $user_id)->first();
             $pdf = Pdf::loadView('admin.detail_print_tagihan', ['data' => $data, 'filter_tanggal' => $filter_tanggal != null ? date_format($filter_tanggal, 'M Y') : '', 'filter_status' => $filter_status, 'user' => $user]);
@@ -108,7 +108,7 @@ Route::middleware('auth')->group(function () {
                 return $query->where('status', $filter_status);
             })->when($filter_tanggal != null, function ($query) use ($filter_tanggal) {
                 return $query->whereMonth('tanggal', date_format($filter_tanggal, 'm'))->whereYear('tanggal', date_format($filter_tanggal, 'Y'));
-            })->where('user_id', auth()->user()->id)->get();
+            })->where('user_id', auth()->user()->id)->orderBy('tanggal', 'asc')->get();
             $pdf = Pdf::loadView('user.print_tagihan', ['data' => $data, 'filter_tanggal' => $filter_tanggal != null ? date_format($filter_tanggal, 'M Y') : '', 'filter_status' => $filter_status]);
             return $pdf->setPaper('A4', 'landscape')->stream();
         })->name('user.print_tagihan');
