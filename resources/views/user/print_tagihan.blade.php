@@ -36,7 +36,7 @@
             @endphp
             @forelse ($data as $item)
                 @php
-                    $date = date_create($item->tanggal, 'M Y');
+                    $date = date_create($item->tanggal);
                     $pemakaian = $item->meteran_akhir - $item->meteran_awal;
                 @endphp
                 <tr>

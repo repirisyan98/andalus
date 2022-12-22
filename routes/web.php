@@ -104,7 +104,7 @@ Route::middleware('auth')->group(function () {
             $data = TagihanPelanggan::when($filter_status != '2', function ($query) use ($filter_status) {
                 return $query->where('status', $filter_status);
             })->when($filter_tanggal != null, function ($query) use ($filter_tanggal) {
-                return $query->where('tanggal', date_format($filter_tanggal, 'm'))->whereYear('tanggal', date_format($filter_tanggal, 'Y'));
+                return $query->where('tanggal', $filter_tanggal);
             })->where('user_id', auth()->user()->id)->orderBy('tanggal', 'asc')->get();
             if ($filter_tanggal != null) {
                 $filter_tanggal = date_create($filter_tanggal);
