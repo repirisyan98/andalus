@@ -90,8 +90,8 @@ Route::middleware('auth')->group(function () {
             return $pdf->setPaper('A4', 'landscape')->stream();
         })->name('admin.detail_print_tagihan');
 
-        Route::get('tagihan', function () {
-            return view('admin.tagihan');
+        Route::get('tagihan/{status?}', function ($status = '2') {
+            return view('admin.tagihan', ['status' => $status]);
         })->name('admin.tagihan');
     });
 

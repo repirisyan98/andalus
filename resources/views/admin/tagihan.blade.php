@@ -5,7 +5,7 @@
 @endsection
 
 @section('wrapper')
-    @livewire('admin.tagihan');
+    @livewire('admin.tagihan',['status' => $status]);
 @endsection
 
 @section('script')

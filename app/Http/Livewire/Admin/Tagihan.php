@@ -37,13 +37,13 @@ class Tagihan extends Component
         'tarif' => 'required|numeric',
     ];
 
-    public function mount()
+    public function mount($status)
     {
         $this->readyToLoad = false;
         $data = BiayaAdmin::select('biaya_admin', 'tarif')->first();
         $this->biaya_admin = $data->biaya_admin;
         $this->tarif = $data->tarif;
-        $this->filter_status = '2';
+        $this->filter_status = $status;
     }
 
     public function loadPosts()
